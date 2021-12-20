@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orderv1
+spec:
+  selector:
+    matchLabels:
+      app: orderv1
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: orderv1
+    spec:
+      containers:
+      - name: orderservice
+        image: sureshksahoo/orderservice
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orderv1
+spec:
+  selector:
+    app: orderv1
+  ports:
+  - port: 80
+    targetPort: 8080

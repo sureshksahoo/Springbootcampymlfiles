@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productv1
+spec:
+  selector:
+    matchLabels:
+      app: productv1
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: productv1
+    spec:
+      containers:
+      - name: productservice
+        image: sureshksahoo/productservice
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: productv1
+spec:
+  selector:
+    app: productv1
+  ports:
+  - port: 80
+    targetPort: 8080

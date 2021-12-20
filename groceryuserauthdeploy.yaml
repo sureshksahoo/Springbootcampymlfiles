@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userauthv1
+spec:
+  selector:
+    matchLabels:
+      app: userauthv1
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: userauthv1
+    spec:
+      containers:
+      - name: customerauthenticator
+        image: sureshksahoo/customerauthenticator
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: v1
+spec:
+  selector:
+    app: userauthv1
+  ports:
+  - port: 80
+    targetPort: 8080
